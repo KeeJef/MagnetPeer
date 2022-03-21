@@ -32,33 +32,41 @@ app.get('/m/single', async (req, res) => {
 
 })
 
+//Resolves an array of plain magnet links sent in a http POST, returns an array of JSON objects with seeds, leachers and the magnet
 app.post('/m/multi', async (req, res) => {
 
+    var responseArray = []
 
-    console.log(req.body)
+    if (req.body) {
 
+        try {
 
-    if (req.query.magnet) {
-        if (base64regex.test(req.query.magnet)) {
+            if (req.body.magnetArray.length <= 10) {
 
-            decodedMagnet = decodeb64(req.query.magnet)
-            torrentprom = await checkTorrentPromise(decodedMagnet)
+                for (let index = 0; index < req.body.magnetArray.length; index++) {
 
-            var response = new Object()
-            response.magnetLink = decodedMagnet
-            response.seeds = torrentprom.seeds
-            response.leachers = torrentprom.peers
+                    var magnet = req.body.magnetArray[index];
+                    torrentprom = await checkTorrentPromise(magnet)
 
-            res.end(JSON.stringify(response));
+                    var response = new Object()
+                    response.magnetLink = magnet
+                    response.seeds = torrentprom.seeds
+                    response.leachers = torrentprom.peers
 
+                    responseArray.push(response)
+
+                }
+            }
+
+        } catch (error) {
+            res.end("Malformed Magnet array or more than 10 magnets");
+            return
         }
-        else {
-            res.end("Magnet not B64 encoded");
-        }
+        res.send(JSON.stringify(responseArray));
 
     }
     else {
-        res.end("No magnet provided");
+        res.end("No request body");
     }
 
 })
