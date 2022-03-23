@@ -20,7 +20,7 @@ app.get('/m/single', async (req, res) => {
             var response = new Object()
             response.magnetLink = decodedMagnet
             response.seeds = torrentprom.seeds
-            response.leachers = torrentprom.peers
+            response.leechers = torrentprom.peers
             
             magnetName = magnet.decode(decodedMagnet)
             console.log("User requested resolution of " + magnetName.dn)
@@ -43,7 +43,7 @@ app.get('/m/', function(req, res) {
     res.sendFile(path.join(public, 'magnetLandingPage.html'));
 });
 
-//Resolves an array of plain magnet links sent in a http POST, returns an array of JSON objects with seeds, leachers and the magnet
+//Resolves an array of plain magnet links sent in a http POST, returns an array of JSON objects with seeds, leechers and the magnet
 app.use('/m/multi', async (req, res) => {
 
     var responseArray = []
@@ -62,7 +62,7 @@ app.use('/m/multi', async (req, res) => {
                     var response = new Object()
                     response.magnetLink = magnet
                     response.seeds = torrentprom.seeds
-                    response.leachers = torrentprom.peers
+                    response.leechers = torrentprom.peers
 
                     responseArray.push(response)
 

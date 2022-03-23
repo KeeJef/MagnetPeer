@@ -1,4 +1,4 @@
-<strong>This API allows you to fetch the Seed and Leacher count for a magnet link. <br><br>
+<strong>This API allows you to fetch the Seed and Leecher count for a magnet link. <br><br>
 
 If you want to resolve a single magnet link call </strong> <br><br>
 
@@ -10,7 +10,7 @@ https://cryptocommit.org/m/single?magnet=bWFnbmV0Oj94dD11cm46YnRpaDpRUlNQSVo2N1Z
 
 <strong>This will return a JSON object like </strong> <br><br>
 
-{magnetLink: 'magnet:?xt=urn:btih:QRSPIZ67VI2LW2246F3F7KL…2Ftracker.opentrackr.org%3A1337%2Fannounce', seeds: 1939, leachers: 17} <br><br>
+{magnetLink: 'magnet:?xt=urn:btih:QRSPIZ67VI2LW2246F3F7KL…2Ftracker.opentrackr.org%3A1337%2Fannounce', seeds: 1939, leechers: 17} <br><br>
 
 <strong> if you want to resolve multiple magnet links, call </strong><br><br>
 
@@ -22,4 +22,4 @@ https://cryptocommit.org/m/multi <br><br>
 
 <strong> it will return a Json object like </strong><br><br>
 
-[{"magnetLink":"magnet:?xt=urn:btih:e8e....hant.org%3A12710","seeds":325,"leachers":18},{"magnetLink":"magnet:?xt=urn:btih:ef232....%1A2421450","seeds":344,"leachers":28}] <br><br>
+[{"magnetLink":"magnet:?xt=urn:btih:e8e....hant.org%3A12710","seeds":325,"leechers":18},{"magnetLink":"magnet:?xt=urn:btih:ef232....%1A2421450","seeds":344,"leechers":28}] <br><br>
