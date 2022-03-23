@@ -1,4 +1,5 @@
 const webtorrentHealth = require('webtorrent-health')
+const magnet = require('magnet-uri')
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -20,7 +21,9 @@ app.get('/m/single', async (req, res) => {
             response.magnetLink = decodedMagnet
             response.seeds = torrentprom.seeds
             response.leachers = torrentprom.peers
-
+            
+            magnetName = magnet.decode(decodedMagnet)
+            console.log("User requested resolution of " + magnetName.dn)
             res.end(JSON.stringify(response));
 
         }
@@ -70,6 +73,8 @@ app.use('/m/multi', async (req, res) => {
             res.end("Malformed Magnet array or more than 10 magnets");
             return
         }
+
+        console.log("Magnet array resolved of length " + req.body.magnetArray.length)
         res.send(JSON.stringify(responseArray));
 
     }
