@@ -1,7 +1,10 @@
 const webtorrentHealth = require('webtorrent-health')
 var express = require('express');
 var app = express();
+var path = require('path');
 app.use(express.json());
+
+var public = path.join(__dirname, '.');
 var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
 
@@ -32,8 +35,13 @@ app.get('/m/single', async (req, res) => {
 
 })
 
+//html page for magnets
+app.get('/m/', function(req, res) {
+    res.sendFile(path.join(public, 'magnetLandingPage.html'));
+});
+
 //Resolves an array of plain magnet links sent in a http POST, returns an array of JSON objects with seeds, leachers and the magnet
-app.post('/m/multi', async (req, res) => {
+app.use('/m/multi', async (req, res) => {
 
     var responseArray = []
 
