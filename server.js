@@ -1,9 +1,11 @@
 const webtorrentHealth = require('webtorrent-health')
 const magnet = require('magnet-uri')
 var express = require('express');
+var cors = require('cors')
 var app = express();
 var path = require('path');
 app.use(express.json());
+app.use(cors())
 
 var public = path.join(__dirname, '.');
 var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
