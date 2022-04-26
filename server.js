@@ -17,6 +17,7 @@ trackerlist = ["udp://tracker.opentrackr.org:1337/announce", "udp://9.rarbg.com:
 // Get Request for single b64 encoded magnet
 app.get('/m/single', async (req, res) => {
     if (req.query.magnet) {
+        
         if (base64regex.test(req.query.magnet)) {
 
             //Replace the pleb trackers with the most popular trackers
@@ -31,7 +32,8 @@ app.get('/m/single', async (req, res) => {
 
             magnetName = magnet.decode(decodedMagnet)
             console.log("User requested resolution of " + magnetName.dn)
-            res.end(JSON.stringify(response));
+            
+            res.send(response);
 
         }
         else {
@@ -52,15 +54,15 @@ app.get('/m/', function (req, res) {
 
 //Resolves an array of plain magnet links sent in a http POST, returns an array of JSON objects with seeds, leechers and the magnet
 app.use('/m/multi', async (req, res) => {
-
+    
     var responseArray = []
 
     if (req.body) {
-
+        
         try {
 
             if (req.body.magnetArray.length <= 10) {
-
+                
                 for (let index = 0; index < req.body.magnetArray.length; index++) {
 
                     var magnet = req.body.magnetArray[index];
@@ -82,7 +84,7 @@ app.use('/m/multi', async (req, res) => {
         }
 
         console.log("Magnet array resolved of length " + req.body.magnetArray.length)
-        res.send(JSON.stringify(responseArray));
+        res.send(responseArray);
 
     }
     else {
